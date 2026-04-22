@@ -1,0 +1,14 @@
+## 0.1.1 (2026-04-20)
+
+- Release 0.1.1
+
+## 0.1.0
+
+- Initial release
+- Event tracking with auto-batching
+- User identification (anonymous + authenticated)
+- Process/funnel tracking (start, step, complete)
+- Automatic screen size capture
+- Anonymous ID persistence via SharedPreferences
+- Retry with exponential backoff
+- Opt-out/opt-in support
