@@ -46,5 +46,11 @@ class ApiClient {
     return ProcessCompleteResponse.fromJson(data);
   }
 
+  Future<ProcessCompleteResponse> failProcess(ProcessFailPayload payload) async {
+    final response = await _http.post('/v1/process/fail', payload.toJson());
+    final data = jsonDecode(response.body) as Map<String, dynamic>;
+    return ProcessCompleteResponse.fromJson(data);
+  }
+
   void close() => _http.close();
 }

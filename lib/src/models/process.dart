@@ -50,3 +50,16 @@ class ProcessCompletePayload {
 
   Map<String, dynamic> toJson() => {'process_id': processId};
 }
+
+class ProcessFailPayload {
+  final String processId;
+  final String? reason;
+
+  const ProcessFailPayload({required this.processId, this.reason});
+
+  Map<String, dynamic> toJson() {
+    final json = <String, dynamic>{'process_id': processId};
+    if (reason != null) json['reason'] = reason;
+    return json;
+  }
+}

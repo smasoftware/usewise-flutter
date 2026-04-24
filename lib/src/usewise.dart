@@ -173,6 +173,17 @@ class Usewise {
     ));
   }
 
+  Future<ProcessCompleteResponse> failProcess(String processId, {String? reason}) async {
+    if (_optedOut) {
+      return const ProcessCompleteResponse(totalSteps: 0, totalDurationMs: 0);
+    }
+
+    return _apiClient.failProcess(ProcessFailPayload(
+      processId: processId,
+      reason: reason,
+    ));
+  }
+
   Future<void> flush() async {
     if (_optedOut) return;
     await _eventQueue.flush();
