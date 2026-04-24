@@ -1,3 +1,7 @@
+## 2.5.0
+
+- Added failProcess() for handling rejected/failed processes
+
 ## 0.1.1 (2026-04-20)
 
 - Release 0.1.1
