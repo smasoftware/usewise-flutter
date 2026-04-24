@@ -1,3 +1,7 @@
+## 2.8.0
+
+- Added enableCrashReporting() for automatic crash detection
+
 ## 2.7.0
 
 - Added screen parameter to trackError()

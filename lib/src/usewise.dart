@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:usewise_flutter/src/config.dart';
 import 'package:usewise_flutter/src/models/event.dart';
 import 'package:usewise_flutter/src/models/identify.dart';
@@ -78,6 +79,34 @@ class Usewise {
     usewise._eventQueue.start();
 
     _instance = usewise;
+  }
+
+  /// Enables automatic crash reporting. Call after init().
+  /// Catches both Flutter framework errors and unhandled async errors.
+  static void enableCrashReporting() {
+    // Catch Flutter framework errors (widget build errors, etc.)
+    FlutterError.onError = (FlutterErrorDetails details) {
+      FlutterError.presentError(details); // keep default behavior
+      _instance?.trackError(
+        details.exceptionAsString(),
+        errorType: 'crash',
+        severity: 'critical',
+        screen: details.context?.toString(),
+        stackTrace: details.stack?.toString(),
+        context: {'library': details.library ?? 'unknown'},
+      );
+    };
+
+    // Catch unhandled async errors (Futures, Isolates)
+    PlatformDispatcher.instance.onError = (error, stack) {
+      _instance?.trackError(
+        error.toString(),
+        errorType: 'crash',
+        severity: 'critical',
+        stackTrace: stack.toString(),
+      );
+      return true; // handled
+    };
   }
 
   String get anonymousId => _anonymousId;
