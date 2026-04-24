@@ -184,6 +184,41 @@ class Usewise {
     ));
   }
 
+  Future<void> trackError(
+    String errorMessage, {
+    String? errorType,
+    String? processId,
+    String? stepName,
+    String? errorCode,
+    String? severity,
+    String? stackTrace,
+    Map<String, dynamic>? context,
+  }) async {
+    if (_optedOut) return;
+
+    final payload = <String, dynamic>{
+      'error_type': errorType ?? 'exception',
+      'error_message': errorMessage,
+      'anonymous_id': _anonymousId,
+      if (_userId != null) 'user_id': _userId,
+      if (processId != null) 'process_id': processId,
+      if (stepName != null) 'step_name': stepName,
+      if (errorCode != null) 'error_code': errorCode,
+      if (severity != null) 'severity': severity,
+      if (stackTrace != null) 'stack_trace': stackTrace,
+      if (context != null) 'context': context,
+      'device_context': {
+        'device_os': _deviceContext.deviceOS,
+        'device_model': _deviceContext.deviceModel,
+        'app_version': _deviceContext.appVersion,
+      },
+    };
+
+    try {
+      await _apiClient.postRaw('/v1/error', payload);
+    } catch (_) {}
+  }
+
   Future<void> flush() async {
     if (_optedOut) return;
     await _eventQueue.flush();

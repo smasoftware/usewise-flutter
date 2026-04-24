@@ -1,3 +1,7 @@
+## 2.6.0
+
+- Added trackError() for error tracking linked to process steps
+
 ## 2.5.0
 
 - Added failProcess() for handling rejected/failed processes

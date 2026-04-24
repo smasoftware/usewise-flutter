@@ -52,5 +52,9 @@ class ApiClient {
     return ProcessCompleteResponse.fromJson(data);
   }
 
+  Future<void> postRaw(String path, Map<String, dynamic> body) async {
+    await _http.post(path, body);
+  }
+
   void close() => _http.close();
 }
