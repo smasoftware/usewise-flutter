@@ -1,3 +1,7 @@
+## 2.7.0
+
+- Added screen parameter to trackError()
+
 ## 2.6.0
 
 - Added trackError() for error tracking linked to process steps

@@ -1,6 +1,6 @@
 name: usewise_flutter
 description: Official Flutter SDK for Usewise product analytics. Track events, identify users, and monitor funnels.
-version: 2.6.0
+version: 2.7.0
 homepage: https://usewise.io
 repository: https://github.com/smasoftware/usewise-flutter
 

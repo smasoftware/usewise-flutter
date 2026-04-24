@@ -187,6 +187,7 @@ class Usewise {
   Future<void> trackError(
     String errorMessage, {
     String? errorType,
+    String? screen,
     String? processId,
     String? stepName,
     String? errorCode,
@@ -201,6 +202,7 @@ class Usewise {
       'error_message': errorMessage,
       'anonymous_id': _anonymousId,
       if (_userId != null) 'user_id': _userId,
+      if (screen != null) 'screen': screen,
       if (processId != null) 'process_id': processId,
       if (stepName != null) 'step_name': stepName,
       if (errorCode != null) 'error_code': errorCode,
