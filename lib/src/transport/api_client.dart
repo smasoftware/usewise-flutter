@@ -34,6 +34,12 @@ class ApiClient {
     return ProcessStartResponse.fromJson(data);
   }
 
+  Future<ProcessStartResponse> startSubProcess(ProcessSubStartPayload payload) async {
+    final response = await _http.post('/v1/process/start-sub', payload.toJson());
+    final data = jsonDecode(response.body) as Map<String, dynamic>;
+    return ProcessStartResponse.fromJson(data);
+  }
+
   Future<ProcessStepResponse> processStep(ProcessStepPayload payload) async {
     final response = await _http.post('/v1/process/step', payload.toJson());
     final data = jsonDecode(response.body) as Map<String, dynamic>;
@@ -50,6 +56,18 @@ class ApiClient {
     final response = await _http.post('/v1/process/fail', payload.toJson());
     final data = jsonDecode(response.body) as Map<String, dynamic>;
     return ProcessCompleteResponse.fromJson(data);
+  }
+
+  Future<ProcessCompleteResponse> cancelProcess(ProcessCancelPayload payload) async {
+    final response = await _http.post('/v1/process/cancel', payload.toJson());
+    final data = jsonDecode(response.body) as Map<String, dynamic>;
+    return ProcessCompleteResponse.fromJson(data);
+  }
+
+  Future<ProcessReverseResponse> reverseProcess(ProcessReversePayload payload) async {
+    final response = await _http.post('/v1/process/reverse', payload.toJson());
+    final data = jsonDecode(response.body) as Map<String, dynamic>;
+    return ProcessReverseResponse.fromJson(data);
   }
 
   Future<void> postRaw(String path, Map<String, dynamic> body) async {

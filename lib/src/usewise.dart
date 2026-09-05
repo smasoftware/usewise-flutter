@@ -171,6 +171,20 @@ class Usewise {
     return response.processId;
   }
 
+  Future<String> startSubProcess(String parentProcessId, String name, {Map<String, dynamic>? properties}) async {
+    if (_optedOut) return '';
+
+    final response = await _apiClient.startSubProcess(ProcessSubStartPayload(
+      parentProcessId: parentProcessId,
+      processName: name,
+      anonymousId: _anonymousId,
+      userId: _userId,
+      properties: properties,
+    ));
+
+    return response.processId;
+  }
+
   Future<ProcessStepResponse> processStep(
     String processId,
     String stepName, {
@@ -210,6 +224,43 @@ class Usewise {
     return _apiClient.failProcess(ProcessFailPayload(
       processId: processId,
       reason: reason,
+    ));
+  }
+
+  Future<ProcessCompleteResponse> cancelProcess(String processId, {String? reason}) async {
+    if (_optedOut) {
+      return const ProcessCompleteResponse(totalSteps: 0, totalDurationMs: 0);
+    }
+
+    return _apiClient.cancelProcess(ProcessCancelPayload(
+      processId: processId,
+      reason: reason,
+    ));
+  }
+
+  Future<ProcessReverseResponse> reverseProcess(
+    String processId, {
+    required ProcessReversalKind kind,
+    String? reason,
+    double? amount,
+    String? currency,
+    Map<String, dynamic>? properties,
+  }) async {
+    if (_optedOut) {
+      return const ProcessReverseResponse(
+        reversalId: '',
+        kind: '',
+        occurredAt: '',
+      );
+    }
+
+    return _apiClient.reverseProcess(ProcessReversePayload(
+      processId: processId,
+      kind: kind,
+      reason: reason,
+      amount: amount,
+      currency: currency,
+      properties: properties,
     ));
   }
 

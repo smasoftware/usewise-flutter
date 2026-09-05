@@ -85,3 +85,29 @@ class ProcessCompleteResponse {
     );
   }
 }
+
+class ProcessReverseResponse {
+  final String reversalId;
+  final String kind;
+  final double? amount;
+  final String? currency;
+  final String occurredAt;
+
+  const ProcessReverseResponse({
+    required this.reversalId,
+    required this.kind,
+    this.amount,
+    this.currency,
+    required this.occurredAt,
+  });
+
+  factory ProcessReverseResponse.fromJson(Map<String, dynamic> json) {
+    return ProcessReverseResponse(
+      reversalId: json['reversal_id'] as String,
+      kind: json['kind'] as String,
+      amount: (json['amount'] as num?)?.toDouble(),
+      currency: json['currency'] as String?,
+      occurredAt: json['occurred_at'] as String,
+    );
+  }
+}

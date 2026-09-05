@@ -1,0 +1,8 @@
+# pub packages whatever is not ignored here. Without this file the published
+# archive included build/ -- 57 MB of local build output, and a 16 MB upload.
+build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+pubspec.lock
+example/build/
